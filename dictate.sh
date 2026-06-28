@@ -2,7 +2,7 @@
 export PATH="/opt/homebrew/bin:$PATH"
 export LANG="de_DE.UTF-8"
 export LC_ALL="de_DE.UTF-8"
-MODEL="$HOME/whisper-models/ggml-large-v3-turbo.bin"
+MODEL="$HOME/whisper-models/ggml-small.bin"
 WAV="/tmp/dictate.wav"
 PIDFILE="/tmp/dictate.pid"
 
@@ -14,7 +14,7 @@ if [ -f "$PIDFILE" ]; then
     afplay /System/Library/Sounds/Pop.aiff &
 
     whisper-cli -m "$MODEL" -l de -nt -otxt -of "/tmp/dictate" \
-      --no-speech-thold 0.6 -t 4 "$WAV" >/dev/null 2>&1
+      --no-speech-thold 0.6 -t 8 "$WAV" >/dev/null 2>&1
     TEXT=$(cat "/tmp/dictate.txt" | tr -d '\n' | sed 's/^ *//')
 
     case "$TEXT" in
